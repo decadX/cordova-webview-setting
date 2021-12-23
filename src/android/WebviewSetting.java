@@ -11,14 +11,12 @@ import android.os.Build;
 
 import android.util.Log;
 
-
-
 public class WebviewSetting extends CordovaPlugin {
     private CordovaWebView webView;
     private static final String LOG_TAG = "WebviewSetting";
     @Override
     public void initialize(final CordovaInterface cordova, CordovaWebView webView) {
-        Log.d(LOG_TAG, "set viewport");
+        Log.d(LOG_TAG, "Webview flags initialized");
         this.webView = webView;
         super.initialize(cordova, webView); 
         
@@ -28,15 +26,17 @@ public class WebviewSetting extends CordovaPlugin {
         if ("set".equals(action)) {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 public void run() {
-                    webView.getSettings().setLoadWithOverviewMode(true);
-                    webView.getSettings().setUseWideViewPort(true);
-                    
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            	        webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
-            	
-            	        Log.d(LOG_TAG, "setMediaPlaybackRequiresUserGesture: FALSE");
-                    }
-                    
+
+					final WebSettings settings = webView.getSettings();
+					
+					// needed for sdk 30 - sqlite plugin db access
+					settings.setAllowFileAccess(true);
+					Log.d(LOG_TAG, "Webview flags setAllowFileAccess set to true");
+					settings.setAllowContentAccess(true);
+					Log.d(LOG_TAG, "Webview flags setAllowContentAccess set to true");
+					settings.setAllowFileAccessFromFileURLs(true);
+					Log.d(LOG_TAG, "Webview flags setAllowFileAccessFromFileURLs set to true");
+			
                     callbackContext.success();
                 }
             });
