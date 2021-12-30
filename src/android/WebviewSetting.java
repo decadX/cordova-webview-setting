@@ -38,7 +38,6 @@ public class WebviewSetting extends CordovaPlugin {
 				settings.setAllowFileAccessFromFileURLs(true);
 				Log.d(LOG_TAG, "Webview flags setAllowFileAccessFromFileURLs set to true");
 				
-				callbackContext.success();
 			}
 		});
     }
