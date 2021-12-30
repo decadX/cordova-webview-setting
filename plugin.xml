@@ -18,6 +18,7 @@
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="WebviewSetting">
                 <param name="android-package" value="com.darktalker.cordova.webviewsetting.WebviewSetting" />
+                <param name="onload" value="true" />
             </feature>
         </config-file>
         <source-file src="src/android/WebviewSetting.java" target-dir="src/com/darktalker/cordova/webviewsetting" />
